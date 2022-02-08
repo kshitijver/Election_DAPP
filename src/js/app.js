@@ -45,11 +45,11 @@ App = {
       App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
       web3 = new Web3(App.web3Provider);
     }
-    ethereum.enable().then(()=>{
+    // ethereum.enable().then(()=>{
 
-    }).catch(function(err){
-      console.log(err);
-    })
+    // }).catch(function(err){
+    //   console.log(err);
+    // })
     return App.initContract();
   },
 
@@ -102,7 +102,7 @@ App = {
         candidatesResults.append(candidateTemplate);
 
         // Render candidate ballot option
-        var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
+        var candidateOption = "<option value=' "+ id +" ' >" + name + "</ option>"
         candidatesSelect.append(candidateOption);
       });
     }
@@ -120,9 +120,8 @@ App = {
 },
 
   castVote: function() {
-    var candidateId = $("candidatesSelect").val();
+    var candidateId = $("#candidatesSelect").val();
     App.contracts.Election.deployed().then(function(i){
-      // console.log(App.account);
       return i.vote(candidateId,{from:App.account});
     }).then(function(receipt){
       console.log(receipt);
